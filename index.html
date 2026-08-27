@@ -3,35 +3,35 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <meta name="theme-color" content="#110a10" />
+  <meta name="theme-color" content="#f5b6ce" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="Tal's Table" />
+  <meta name="apple-mobile-web-app-title" content="Tal Tastes" />
   <link rel="apple-touch-icon" href="icon-192.png" />
-  <link rel="manifest" href="manifest.json" />
-  <link rel="stylesheet" href="styles.css" />
-  <title>Tal's Table</title>
+  <link rel="manifest" href="manifest.json?v=5.1" />
+  <link rel="stylesheet" href="styles.css?v=5.1" />
+  <title>Tal Tastes</title>
 </head>
 <body>
-  <div class="bg-glow glow-1"></div>
-  <div class="bg-glow glow-2"></div>
+  <div class="pink-orb orb-one"></div>
+  <div class="pink-orb orb-two"></div>
 
   <div class="app-shell">
     <header class="topbar">
       <div>
-        <p class="eyebrow">TAL'S PRIVATE RESTAURANT GAME</p>
-        <h1>Tal's Table</h1>
-        <p class="soft-note">Pink, personal, picky, and a little dramatic.</p>
+        <p class="eyebrow">TAL'S PRIVATE FOOD CLUB</p>
+        <h1>Tal Tastes</h1>
+        <p class="soft-note">Pretty picky. Professionally scored.</p>
       </div>
       <button class="icon-btn" id="installHintBtn" aria-label="Install app">♡</button>
     </header>
 
     <main>
       <section class="hero">
-        <div>
-          <p class="eyebrow">CURRENT #1</p>
+        <div class="hero-copy">
+          <p class="eyebrow dark">CURRENT #1</p>
           <h2 id="championName">No places rated yet</h2>
-          <p id="championMeta" class="muted">Start by adding Tal's first review.</p>
+          <p id="championMeta" class="hero-muted">Your first review starts the ranking.</p>
           <div class="hero-chip" id="championVerdict">Waiting for Tal's verdict</div>
         </div>
         <div class="hero-score">
@@ -53,31 +53,22 @@
         <div class="badge-row" id="badgeRow"></div>
       </section>
 
+      <section class="dashboard-title">
+        <div>
+          <p class="eyebrow">TAL'S DASHBOARD</p>
+          <h3>The numbers</h3>
+        </div>
+      </section>
+
       <section class="dashboard-grid">
-        <article class="dash-card">
-          <span>Restaurants tried</span>
-          <strong id="dashTotal">0</strong>
-        </article>
-        <article class="dash-card">
-          <span>Average score</span>
-          <strong id="dashAverage">0.0</strong>
-        </article>
-        <article class="dash-card">
-          <span>Elite 9+</span>
-          <strong id="dashElite">0</strong>
-        </article>
-        <article class="dash-card">
-          <span>Most visited area</span>
-          <strong id="dashArea">None</strong>
-        </article>
-        <article class="dash-card">
-          <span>Favorite tag</span>
-          <strong id="dashTag">None</strong>
-        </article>
-        <article class="dash-card">
-          <span>Best sushi</span>
-          <strong id="dashBestSushi">None</strong>
-        </article>
+        <article class="dash-card pink-card"><span>Places tried</span><strong id="dashTotal">0</strong><small>all time</small></article>
+        <article class="dash-card"><span>This month</span><strong id="dashMonth">0</strong><small>new reviews</small></article>
+        <article class="dash-card"><span>Average</span><strong id="dashAverage">0.0</strong><small>out of 10</small></article>
+        <article class="dash-card pink-card"><span>Elite club</span><strong id="dashElite">0</strong><small>scored 9+</small></article>
+        <article class="dash-card"><span>Top area</span><strong id="dashArea">None</strong><small>most visited</small></article>
+        <article class="dash-card"><span>Favorite vibe</span><strong id="dashTag">None</strong><small>most used tag</small></article>
+        <article class="dash-card"><span>Best sushi</span><strong id="dashBestSushi">None</strong><small>highest score</small></article>
+        <article class="dash-card pink-card"><span>Would return</span><strong id="dashReturn">0%</strong><small>strong craving</small></article>
       </section>
 
       <section class="toolbar">
@@ -100,59 +91,45 @@
 
       <section class="section-head">
         <div>
-          <p class="eyebrow">THE LEADERBOARD</p>
+          <p class="eyebrow">THE PINK LEADERBOARD</p>
           <h3>Tal's rankings</h3>
         </div>
-        <div class="section-actions">
-          <button class="ghost-btn" id="seedBtn">Load demo</button>
-          <button class="ghost-btn" id="refreshBtn">Refresh</button>
-        </div>
+        <button class="ghost-btn" id="refreshBtn">Refresh</button>
       </section>
 
       <section id="reviewList" class="review-list"></section>
 
       <section class="empty-state" id="emptyState">
         <div class="empty-icon">✦</div>
-        <h3>Ready for Tal's era of reviews</h3>
-        <p>Every review requires a restaurant photo, a smart score, and a tag that tells the story.</p>
+        <h3>Your next obsession starts here.</h3>
+        <p>Every review needs a real photo, a smart 15-question experience check, and at least one vibe tag.</p>
         <button class="primary-btn" data-open-review>Add first review</button>
       </section>
     </main>
 
     <nav class="bottom-nav">
-      <button class="nav-item active" data-scroll-top>
-        <span>⌂</span><small>Home</small>
-      </button>
+      <button class="nav-item active" data-scroll-top><span>⌂</span><small>Home</small></button>
       <button class="nav-add" data-open-review aria-label="Add review">＋</button>
-      <button class="nav-item" id="exportBtn">
-        <span>⇩</span><small>Export</small>
-      </button>
+      <button class="nav-item" id="exportBtn"><span>⇩</span><small>Export</small></button>
     </nav>
   </div>
 
   <div class="modal-backdrop" id="reviewModal" aria-hidden="true">
     <div class="modal-sheet">
       <div class="modal-header">
-        <div>
-          <p class="eyebrow">NEW REVIEW</p>
-          <h2>Tal's scorecard</h2>
-        </div>
+        <div><p class="eyebrow">NEW REVIEW</p><h2>Tal's scorecard</h2></div>
         <button class="icon-btn" id="closeModal">×</button>
       </div>
 
       <div class="stepper">
-        <span class="step active" data-step-dot="1">1</span>
-        <i></i>
-        <span class="step" data-step-dot="2">2</span>
-        <i></i>
+        <span class="step active" data-step-dot="1">1</span><i></i>
+        <span class="step" data-step-dot="2">2</span><i></i>
         <span class="step" data-step-dot="3">3</span>
       </div>
 
-      <form id="reviewForm">
+      <form id="reviewForm" novalidate>
         <section class="form-step active" data-step="1">
-          <label>Place name
-            <input name="name" required placeholder="e.g. Uchi" />
-          </label>
+          <label>Place name<input name="name" required placeholder="e.g. Uchi" /></label>
 
           <div class="two-col">
             <label>Type of place
@@ -165,111 +142,86 @@
               </select>
             </label>
             <label>Price
-              <select name="price">
-                <option value="$">$</option>
-                <option value="$$">$$</option>
-                <option value="$$$" selected>$$$</option>
-                <option value="$$$$">$$$$</option>
-              </select>
+              <select name="price"><option>$</option><option>$$</option><option selected>$$$</option><option>$$$$</option></select>
             </label>
           </div>
 
           <div class="two-col">
-            <label>Cuisine
-              <input name="cuisine" required placeholder="Sushi, Italian..." />
-            </label>
-            <label>Area
-              <input name="area" required placeholder="Brickell, Wynwood..." />
-            </label>
+            <label>Cuisine<input name="cuisine" required placeholder="Sushi, Italian..." /></label>
+            <label>Area<input name="area" required placeholder="Brickell, Wynwood..." /></label>
           </div>
 
           <div class="two-col">
-            <label>Visit date
-              <input type="date" name="date" />
-            </label>
-            <label>Best bite
-              <input name="bestDish" placeholder="Best thing you ate" />
-            </label>
+            <label>Visit date<input type="date" name="date" /></label>
+            <label>Best bite<input name="bestDish" placeholder="Best thing you ate" /></label>
           </div>
 
-          <label>Tag the vibe
-            <select name="tag" required>
-              <option value="date night">date night</option>
-              <option value="lunch break">lunch break</option>
-              <option value="girls night">girls night</option>
-              <option value="family dinner">family dinner</option>
-              <option value="quick grab">quick grab</option>
-              <option value="birthday">birthday</option>
-              <option value="brunch">brunch</option>
-              <option value="comfort food">comfort food</option>
-            </select>
-          </label>
+          <fieldset class="tag-fieldset">
+            <legend>Tag the vibe, choose one or more</legend>
+            <div class="tag-picker">
+              <label class="tag-choice"><input type="checkbox" name="tags" value="date night" /><span>date night</span></label>
+              <label class="tag-choice"><input type="checkbox" name="tags" value="lunch break" /><span>lunch break</span></label>
+              <label class="tag-choice"><input type="checkbox" name="tags" value="girls night" /><span>girls night</span></label>
+              <label class="tag-choice"><input type="checkbox" name="tags" value="family dinner" /><span>family dinner</span></label>
+              <label class="tag-choice"><input type="checkbox" name="tags" value="quick grab" /><span>quick grab</span></label>
+              <label class="tag-choice"><input type="checkbox" name="tags" value="birthday" /><span>birthday</span></label>
+              <label class="tag-choice"><input type="checkbox" name="tags" value="brunch" /><span>brunch</span></label>
+              <label class="tag-choice"><input type="checkbox" name="tags" value="comfort food" /><span>comfort food</span></label>
+              <label class="tag-choice"><input type="checkbox" name="tags" value="special occasion" /><span>special occasion</span></label>
+              <label class="tag-choice"><input type="checkbox" name="tags" value="worth the drive" /><span>worth the drive</span></label>
+            </div>
+          </fieldset>
 
           <label class="photo-upload">
             <span>Restaurant photo, required</span>
             <input type="file" name="photo" accept="image/*" capture="environment" required />
-            <small id="photoStatus">Take or upload one photo of the restaurant or food.</small>
+            <small id="photoStatus">Take or upload one photo of the restaurant, table, or food.</small>
           </label>
-          <img id="photoPreview" class="photo-preview hidden" alt="Preview" />
+          <img id="photoPreview" class="photo-preview hidden" alt="Restaurant photo preview" />
         </section>
 
         <section class="form-step" data-step="2">
-          <p class="question-intro">Rate the details from 1 to 10. These questions are weighted, so the final score feels smarter and more varied.</p>
+          <p class="question-intro">The little things matter. Score each one from 1 to 10, the final rating is weighted automatically.</p>
 
-          <div class="rating-row"><div><strong>1. Worth the drive</strong><small>Did getting there feel worth it?</small></div><output id="driveOut">8</output><input type="range" name="drive" min="1" max="10" value="8" /></div>
-          <div class="rating-row"><div><strong>2. Parking situation</strong><small>Easy and painless, or already annoying?</small></div><output id="parkingOut">8</output><input type="range" name="parking" min="1" max="10" value="8" /></div>
-          <div class="rating-row"><div><strong>3. Wait before sitting</strong><small>How well did they handle the wait?</small></div><output id="waitOut">8</output><input type="range" name="wait" min="1" max="10" value="8" /></div>
-          <div class="rating-row"><div><strong>4. Welcome and care</strong><small>Did they greet you, offer water, and make you feel noticed?</small></div><output id="welcomeOut">8</output><input type="range" name="welcome" min="1" max="10" value="8" /></div>
-          <div class="rating-row"><div><strong>5. Server warmth</strong><small>Warm and smiley, or just doing the job?</small></div><output id="warmthOut">8</output><input type="range" name="warmth" min="1" max="10" value="8" /></div>
-          <div class="rating-row"><div><strong>6. Food timing</strong><small>Did things arrive at a good pace?</small></div><output id="timingOut">8</output><input type="range" name="timing" min="1" max="10" value="8" /></div>
-          <div class="rating-row"><div><strong>7. Order accuracy</strong><small>Any mistakes, forgotten items, or confusion?</small></div><output id="accuracyOut">8</output><input type="range" name="accuracy" min="1" max="10" value="8" /></div>
-          <div class="rating-row"><div><strong>8. Food quality</strong><small>The actual taste, quality, and execution.</small></div><output id="foodOut">8</output><input type="range" name="food" min="1" max="10" value="8" /></div>
-          <div class="rating-row"><div><strong>9. Freshness</strong><small>Did it taste fresh and intentional?</small></div><output id="freshnessOut">8</output><input type="range" name="freshness" min="1" max="10" value="8" /></div>
-          <div class="rating-row"><div><strong>10. Atmosphere</strong><small>Vibe, beauty, music, lighting, energy.</small></div><output id="atmosphereOut">8</output><input type="range" name="atmosphere" min="1" max="10" value="8" /></div>
-          <div class="rating-row"><div><strong>11. Noise balance</strong><small>Could you enjoy it, or was it too loud?</small></div><output id="noiseOut">8</output><input type="range" name="noise" min="1" max="10" value="8" /></div>
-          <div class="rating-row"><div><strong>12. Price fairness</strong><small>Did it feel worth the money?</small></div><output id="valueOut">8</output><input type="range" name="value" min="1" max="10" value="8" /></div>
-          <div class="rating-row"><div><strong>13. Craving to return</strong><small>How strongly do you want to go back?</small></div><output id="cravingOut">8</output><input type="range" name="craving" min="1" max="10" value="8" /></div>
+          <div class="rating-row"><div><strong>1. Worth the trip</strong><small>Did the drive or journey feel justified?</small></div><output id="driveOut">8</output><input type="range" name="drive" min="1" max="10" value="8" /></div>
+          <div class="rating-row"><div><strong>2. Parking situation</strong><small>Easy and smooth, or annoying before dinner even started?</small></div><output id="parkingOut">8</output><input type="range" name="parking" min="1" max="10" value="8" /></div>
+          <div class="rating-row"><div><strong>3. Wait handling</strong><small>Was the wait reasonable, accurate, and handled well?</small></div><output id="waitOut">8</output><input type="range" name="wait" min="1" max="10" value="8" /></div>
+          <div class="rating-row"><div><strong>4. First five minutes</strong><small>Greeting, menus, water, attention, did you feel noticed?</small></div><output id="welcomeOut">8</output><input type="range" name="welcome" min="1" max="10" value="8" /></div>
+          <div class="rating-row"><div><strong>5. Server warmth</strong><small>Genuinely kind and smiley, or technically doing the job?</small></div><output id="warmthOut">8</output><input type="range" name="warmth" min="1" max="10" value="8" /></div>
+          <div class="rating-row"><div><strong>6. Menu confidence</strong><small>Could the server explain dishes and make a useful recommendation?</small></div><output id="knowledgeOut">8</output><input type="range" name="knowledge" min="1" max="10" value="8" /></div>
+          <div class="rating-row"><div><strong>7. Order accuracy</strong><small>Correct dishes, requests remembered, no awkward fixes?</small></div><output id="accuracyOut">8</output><input type="range" name="accuracy" min="1" max="10" value="8" /></div>
+          <div class="rating-row"><div><strong>8. Food pacing</strong><small>Did courses arrive at the right speed, not rushed or forgotten?</small></div><output id="timingOut">8</output><input type="range" name="timing" min="1" max="10" value="8" /></div>
+          <div class="rating-row"><div><strong>9. Food quality</strong><small>Taste, execution, seasoning, texture, the actual meal.</small></div><output id="foodOut">8</output><input type="range" name="food" min="1" max="10" value="8" /></div>
+          <div class="rating-row"><div><strong>10. Freshness & temperature</strong><small>Did it arrive fresh, hot or cold as intended, and cared for?</small></div><output id="freshnessOut">8</output><input type="range" name="freshness" min="1" max="10" value="8" /></div>
+          <div class="rating-row"><div><strong>11. Atmosphere</strong><small>Design, lighting, music, energy, overall visual feeling.</small></div><output id="atmosphereOut">8</output><input type="range" name="atmosphere" min="1" max="10" value="8" /></div>
+          <div class="rating-row"><div><strong>12. Noise balance</strong><small>Could you comfortably talk without the place feeling dead?</small></div><output id="noiseOut">8</output><input type="range" name="noise" min="1" max="10" value="8" /></div>
+          <div class="rating-row"><div><strong>13. Cleanliness</strong><small>Table, glassware, floors, bathroom, the details you notice subconsciously.</small></div><output id="cleanlinessOut">8</output><input type="range" name="cleanliness" min="1" max="10" value="8" /></div>
+          <div class="rating-row"><div><strong>14. Price fairness</strong><small>Did the experience actually feel worth what you paid?</small></div><output id="valueOut">8</output><input type="range" name="value" min="1" max="10" value="8" /></div>
+          <div class="rating-row"><div><strong>15. Return craving</strong><small>If someone asked tonight, how badly would you want to go back?</small></div><output id="cravingOut">8</output><input type="range" name="craving" min="1" max="10" value="8" /></div>
         </section>
 
         <section class="form-step" data-step="3">
-          <p class="question-intro">Final questions and smart summary.</p>
+          <p class="question-intro">Final instinct check. This fine-tunes the score without overpowering the 15 questions.</p>
 
           <div class="choice-group">
-            <p>Would you recommend it?</p>
+            <p>Would you recommend it to someone you actually like?</p>
             <label class="choice"><input type="radio" name="recommend" value="yes" checked /><span>Yes</span></label>
-            <label class="choice"><input type="radio" name="recommend" value="maybe" /><span>Only to the right person</span></label>
+            <label class="choice"><input type="radio" name="recommend" value="maybe" /><span>Only the right person</span></label>
             <label class="choice"><input type="radio" name="recommend" value="no" /><span>No</span></label>
           </div>
 
           <div class="choice-group">
-            <p>What kind of occasion fits it best?</p>
-            <label class="choice"><input type="radio" name="moment" value="date" checked /><span>Date night</span></label>
-            <label class="choice"><input type="radio" name="moment" value="casual" /><span>Casual</span></label>
-            <label class="choice"><input type="radio" name="moment" value="celebration" /><span>Celebration</span></label>
-            <label class="choice"><input type="radio" name="moment" value="food-only" /><span>Only for the food</span></label>
-          </div>
-
-          <div class="choice-group">
-            <p>Would you choose it again over trying somewhere new?</p>
-            <label class="choice"><input type="radio" name="chooseAgain" value="yes" checked /><span>Very likely</span></label>
+            <p>Would you choose it again instead of trying somewhere new?</p>
+            <label class="choice"><input type="radio" name="chooseAgain" value="yes" checked /><span>Definitely</span></label>
             <label class="choice"><input type="radio" name="chooseAgain" value="maybe" /><span>Maybe</span></label>
-            <label class="choice"><input type="radio" name="chooseAgain" value="no" /><span>Not likely</span></label>
+            <label class="choice"><input type="radio" name="chooseAgain" value="no" /><span>Probably not</span></label>
           </div>
 
-          <label>One-line verdict
-            <textarea name="notes" rows="3" placeholder="What would Tal text a friend about this place?"></textarea>
-          </label>
+          <label>One-line verdict<textarea name="notes" rows="3" placeholder="What would Tal text her best friend about this place?"></textarea></label>
 
           <div class="score-preview">
-            <div>
-              <p class="eyebrow">FINAL SCORE</p>
-              <strong id="scorePreview">8.0</strong>
-              <small>/ 10</small>
-            </div>
-            <div>
-              <div class="stars" id="starPreview">★★★★★★★★☆☆</div>
-              <div class="preview-verdict" id="verdictPreview">Cute but not life-changing</div>
-            </div>
+            <div><p class="eyebrow dark">TAL'S FINAL SCORE</p><strong id="scorePreview">8.0</strong><small>/ 10</small></div>
+            <div><div class="stars" id="starPreview">★★★★★★★★☆☆</div><div class="preview-verdict" id="verdictPreview">Cute But Flawed</div></div>
           </div>
         </section>
 
@@ -284,13 +236,7 @@
 
   <div class="modal-backdrop" id="detailModal" aria-hidden="true">
     <div class="modal-sheet detail-sheet">
-      <div class="modal-header">
-        <div>
-          <p class="eyebrow">REVIEW CARD</p>
-          <h2 id="detailName">Place</h2>
-        </div>
-        <button class="icon-btn" id="closeDetail">×</button>
-      </div>
+      <div class="modal-header"><div><p class="eyebrow">REVIEW CARD</p><h2 id="detailName">Place</h2></div><button class="icon-btn" id="closeDetail">×</button></div>
       <div id="detailBody"></div>
     </div>
   </div>
@@ -298,7 +244,7 @@
   <div class="toast" id="toast"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="config.js"></script>
-  <script src="app.js"></script>
+  <script src="config.js?v=5.1"></script>
+  <script src="app.js?v=5.1"></script>
 </body>
 </html>

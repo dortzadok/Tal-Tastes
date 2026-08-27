@@ -1,21 +1,14 @@
 {
-  "name": "Tal's Table",
-  "short_name": "Tal's Table",
-  "description": "Tal's personal restaurant ranking app.",
+  "name": "Tal Tastes",
+  "short_name": "Tal Tastes",
+  "description": "Tal's personal restaurant rating game.",
   "start_url": "./",
+  "scope": "./",
   "display": "standalone",
-  "background_color": "#0f0910",
-  "theme_color": "#110a10",
+  "background_color": "#120b10",
+  "theme_color": "#f5b6ce",
   "icons": [
-    {
-      "src": "icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
+    {"src":"icon-192.png","sizes":"192x192","type":"image/png"},
+    {"src":"icon-512.png","sizes":"512x512","type":"image/png"}
   ]
 }

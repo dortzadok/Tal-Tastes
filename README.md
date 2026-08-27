@@ -1,24 +1,25 @@
-# Tal's Table V4
+# Tal Tastes V5
 
-This version adds:
-- live-ready static site
-- Supabase database support
-- Supabase Storage support for required restaurant photo uploads
-- mandatory image before review submission
-- tags like date night, lunch break, girls night, family dinner, quick grab
-- dashboard cards with totals, averages, top area, top tag, and best sushi
-- pink and black styling inspired by bright football pink aesthetics
+Static PWA with a robust standalone local mode and optional Supabase cloud mode.
 
-## Setup
+## Works immediately without Supabase
+When config.js is empty, reviews and compressed photos are stored in IndexedDB. This avoids Safari localStorage quota failures and lets the app be used immediately.
 
-1. Create a Supabase project
-2. Create a public Storage bucket named `restaurant-photos`
-3. Run `supabase-schema.sql` in the SQL editor
-4. Run `supabase-storage-policies.sql` in the SQL editor
-5. Copy your Supabase project URL and anon key into `config.js`
-6. Host these files on GitHub Pages or any static host
+## Cloud mode
+1. Create a Supabase project.
+2. Run `supabase-schema.sql`.
+3. Create a PUBLIC Storage bucket named `restaurant-photos`.
+4. Run `supabase-storage-policies.sql`.
+5. Put the project URL and anon key into `config.js`.
+6. Re-upload only `config.js` to GitHub and wait for Pages to redeploy.
 
-## Notes
+## Deployment
+Upload every file in this folder to the root of the GitHub Pages repository and publish `main` / `(root)`.
 
-- If `config.js` is left empty, the app falls back to local storage
-- For production, a stricter authentication model is recommended
+## V5.1 checks
+- 15 scoring questions
+- Required compressed restaurant photo
+- Multi-select vibe tags
+- IndexedDB persistence
+- Dashboard, filters, leaderboard, detail view, delete and export
+- PWA cache version bumped to avoid stale GitHub Pages files
