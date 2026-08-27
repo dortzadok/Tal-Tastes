@@ -8,11 +8,24 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Tal Tastes" />
   <link rel="apple-touch-icon" href="icon-192.png" />
-  <link rel="manifest" href="manifest.json?v=5.2" />
-  <link rel="stylesheet" href="styles.css?v=5.2" />
+  <link rel="manifest" href="manifest.json?v=5.3" />
+  <link rel="stylesheet" href="styles.css?v=5.3" />
   <title>Tal Tastes</title>
 </head>
 <body>
+  <div class="login-gate" id="loginGate" aria-hidden="false">
+    <div class="login-card">
+      <div class="login-mark">T</div>
+      <p class="eyebrow dark">PRIVATE FOOD CLUB</p>
+      <h2>Welcome to Tal Tastes</h2>
+      <p class="login-copy">Your restaurant diary, rankings, photos, and little food obsessions.</p>
+      <label>Username<input id="loginName" autocomplete="username" value="Tal" /></label>
+      <label>PIN<input id="loginPin" type="password" inputmode="numeric" maxlength="4" autocomplete="current-password" placeholder="••••" /></label>
+      <label class="remember-row"><input id="rememberLogin" type="checkbox" checked /><span>Keep me signed in on this iPhone</span></label>
+      <button class="primary-btn login-btn" id="loginBtn">Enter Tal Tastes</button>
+      <small class="login-error" id="loginError"></small>
+    </div>
+  </div>
   <div class="pink-orb orb-one"></div>
   <div class="pink-orb orb-two"></div>
 
@@ -23,7 +36,10 @@
         <h1>Tal Tastes</h1>
         <p class="soft-note">Pretty picky. Professionally scored.</p>
       </div>
-      <button class="icon-btn" id="installHintBtn" aria-label="Install app">♡</button>
+      <div class="top-actions">
+        <button class="profile-pill" id="profileBtn" aria-label="Profile">Tal</button>
+        <button class="icon-btn" id="installHintBtn" aria-label="Install app">♡</button>
+      </div>
     </header>
 
     <main>
@@ -35,8 +51,8 @@
           <div class="hero-chip" id="championVerdict">Waiting for Tal's verdict</div>
         </div>
         <div class="hero-score">
-          <span id="championScore">0.0</span>
-          <small>/ 10</small>
+          <div><span id="championScore">0.0</span><small>/ 10</small></div>
+          <div class="star-meter hero-stars" aria-label="Star rating"><span class="star-bg">★★★★★</span><span class="star-fill" id="championStarFill">★★★★★</span></div>
         </div>
       </section>
 
@@ -69,6 +85,8 @@
         <article class="dash-card"><span>Favorite vibe</span><strong id="dashTag">None</strong><small>most used tag</small></article>
         <article class="dash-card"><span>Best sushi</span><strong id="dashBestSushi">None</strong><small>highest score</small></article>
         <article class="dash-card pink-card"><span>Would return</span><strong id="dashReturn">0%</strong><small>strong craving</small></article>
+        <article class="dash-card"><span>Cuisines tried</span><strong id="dashCuisines">0</strong><small>unique cuisines</small></article>
+        <article class="dash-card pink-card"><span>Main character</span><strong id="dashMainCharacter">0</strong><small>scored 9.5+</small></article>
       </section>
 
       <section class="toolbar">
@@ -76,17 +94,33 @@
           <span>⌕</span>
           <input id="searchInput" placeholder="Search place, area, cuisine, tag" />
         </div>
+        <div class="quick-views" id="quickViews">
+          <button class="quick-chip active" data-quick="all">All</button>
+          <button class="quick-chip" data-quick="elite">9+ club</button>
+          <button class="quick-chip" data-quick="recent">Newest</button>
+          <button class="quick-chip" data-quick="date night">Date night</button>
+          <button class="quick-chip" data-quick="girls night">Girls night</button>
+          <button class="quick-chip" data-quick="sushi">Sushi</button>
+        </div>
         <div class="filters">
           <select id="areaFilter"><option value="">All areas</option></select>
           <select id="cuisineFilter"><option value="">All cuisines</option></select>
+          <select id="typeFilter"><option value="">All place types</option></select>
           <select id="tagFilter"><option value="">All tags</option></select>
+          <select id="priceFilter"><option value="">Any price</option><option value="$">$</option><option value="$$">$$</option><option value="$$$">$$$</option><option value="$$$$">$$$$</option></select>
+          <select id="scoreFilter"><option value="">Any score</option><option value="9">9+</option><option value="8">8+</option><option value="7">7+</option><option value="under7">Under 7</option></select>
+          <select id="dateFilter"><option value="">Any date</option><option value="month">This month</option><option value="30">Last 30 days</option><option value="90">Last 90 days</option><option value="year">This year</option></select>
           <select id="sortFilter">
             <option value="score-desc">Highest score</option>
             <option value="recent">Most recent</option>
+            <option value="oldest">Oldest first</option>
             <option value="score-asc">Lowest score</option>
             <option value="name">A to Z</option>
+            <option value="price-asc">Price low to high</option>
+            <option value="price-desc">Price high to low</option>
           </select>
         </div>
+        <button class="clear-filters" id="clearFiltersBtn">Clear filters</button>
       </section>
 
       <section class="section-head">
@@ -117,7 +151,7 @@
   <div class="modal-backdrop" id="reviewModal" aria-hidden="true">
     <div class="modal-sheet">
       <div class="modal-header">
-        <div><p class="eyebrow">NEW REVIEW</p><h2>Tal's scorecard</h2></div>
+        <div><p class="eyebrow" id="reviewModalEyebrow">NEW REVIEW</p><h2 id="reviewModalTitle">Tal's scorecard</h2></div>
         <button class="icon-btn" id="closeModal">×</button>
       </div>
 
@@ -133,13 +167,25 @@
 
           <div class="two-col">
             <label>Type of place
-              <select name="venueType">
-                <option value="restaurant">Restaurant</option>
+              <select name="venueType" id="venueType">
+                <option value="fine-dining">Fine Dining</option>
+                <option value="casual-dining" selected>Casual Restaurant</option>
+                <option value="fast-casual">Fast Casual</option>
                 <option value="sushi">Sushi / Omakase</option>
-                <option value="cafe">Café / Brunch</option>
+                <option value="tasting-menu">Tasting Menu</option>
+                <option value="cafe">Café</option>
+                <option value="brunch-spot">Brunch Spot</option>
                 <option value="bar">Bar / Lounge</option>
-                <option value="dessert">Dessert / Bakery</option>
+                <option value="rooftop">Rooftop</option>
+                <option value="bakery-dessert">Bakery / Dessert</option>
+                <option value="hotel-restaurant">Hotel Restaurant</option>
+                <option value="food-hall">Food Hall</option>
+                <option value="food-truck">Food Truck</option>
+                <option value="takeout">Takeout / Delivery</option>
+                <option value="buffet">Buffet</option>
+                <option value="other">Other</option>
               </select>
+              <input id="customVenueType" name="customVenueType" class="hidden custom-type-input" placeholder="Type your own place type" />
             </label>
             <label>Price
               <select name="price"><option>$</option><option>$$</option><option selected>$$$</option><option>$$$$</option></select>
@@ -169,6 +215,10 @@
               <label class="tag-choice"><input type="checkbox" name="tags" value="comfort food" /><span>comfort food</span></label>
               <label class="tag-choice"><input type="checkbox" name="tags" value="special occasion" /><span>special occasion</span></label>
               <label class="tag-choice"><input type="checkbox" name="tags" value="worth the drive" /><span>worth the drive</span></label>
+            </div>
+            <div class="custom-tag-row">
+              <input id="customTagInput" placeholder="Add your own tag, e.g. sunset spot" />
+              <button type="button" class="mini-add-btn" id="addTagBtn">+ Add tag</button>
             </div>
           </fieldset>
 
@@ -221,7 +271,7 @@
 
           <div class="score-preview">
             <div><p class="eyebrow dark">TAL'S FINAL SCORE</p><strong id="scorePreview">8.0</strong><small>/ 10</small></div>
-            <div><div class="stars" id="starPreview">★★★★★★★★☆☆</div><div class="preview-verdict" id="verdictPreview">Cute But Flawed</div></div>
+            <div><div class="star-meter preview-stars"><span class="star-bg">★★★★★</span><span class="star-fill" id="starPreviewFill">★★★★★</span></div><div class="preview-verdict" id="verdictPreview">Cute But Flawed</div></div>
           </div>
         </section>
 
@@ -241,10 +291,22 @@
     </div>
   </div>
 
+  <div class="modal-backdrop" id="profileModal" aria-hidden="true">
+    <div class="modal-sheet compact-sheet">
+      <div class="modal-header"><div><p class="eyebrow">PROFILE</p><h2>Tal Tastes</h2></div><button class="icon-btn" id="closeProfile">×</button></div>
+      <div class="profile-panel">
+        <div class="profile-avatar">T</div>
+        <div><strong>Tal</strong><p class="muted">Private food critic</p></div>
+      </div>
+      <button class="ghost-btn full-width" id="logoutBtn">Log out on this device</button>
+      <p class="security-note">This PIN is a convenience lock while the app is device-only. Real account security will come with cloud login.</p>
+    </div>
+  </div>
+
   <div class="toast" id="toast"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="config.js?v=5.2"></script>
-  <script src="app.js?v=5.2"></script>
+  <script src="config.js?v=5.3"></script>
+  <script src="app.js?v=5.3"></script>
 </body>
 </html>

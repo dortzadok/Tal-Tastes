@@ -1,11 +1,11 @@
-const CACHE = "tal-tastes-v5-2";
+const CACHE = "tal-tastes-v5-3";
 const CORE = [
   "./",
   "./index.html",
-  "./styles.css?v=5.2",
-  "./app.js?v=5.2",
-  "./config.js?v=5.2",
-  "./manifest.json?v=5.2",
+  "./styles.css?v=5.3",
+  "./app.js?v=5.3",
+  "./config.js?v=5.3",
+  "./manifest.json?v=5.3",
   "./icon-192.png",
   "./icon-512.png"
 ];

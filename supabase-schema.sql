@@ -36,3 +36,4 @@ alter table public.restaurant_reviews enable row level security;
 create policy "anon can read reviews" on public.restaurant_reviews for select to anon using (true);
 create policy "anon can insert reviews" on public.restaurant_reviews for insert to anon with check (true);
 create policy "anon can delete reviews" on public.restaurant_reviews for delete to anon using (true);
+create policy "anon can update reviews" on public.restaurant_reviews for update to anon using (true) with check (true);
