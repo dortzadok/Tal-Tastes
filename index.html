@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#110a10" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Tal's Table" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="styles.css" />
+  <title>Tal's Table</title>
+</head>
+<body>
+  <div class="bg-glow glow-1"></div>
+  <div class="bg-glow glow-2"></div>
+
+  <div class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">TAL'S PRIVATE RESTAURANT GAME</p>
+        <h1>Tal's Table</h1>
+        <p class="soft-note">Pink, personal, picky, and a little dramatic.</p>
+      </div>
+      <button class="icon-btn" id="installHintBtn" aria-label="Install app">♡</button>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div>
+          <p class="eyebrow">CURRENT #1</p>
+          <h2 id="championName">No places rated yet</h2>
+          <p id="championMeta" class="muted">Start by adding Tal's first review.</p>
+          <div class="hero-chip" id="championVerdict">Waiting for Tal's verdict</div>
+        </div>
+        <div class="hero-score">
+          <span id="championScore">0.0</span>
+          <small>/ 10</small>
+        </div>
+      </section>
+
+      <section class="critic-card">
+        <div class="critic-top">
+          <div>
+            <p class="eyebrow">CRITIC STATUS</p>
+            <h3 id="criticLevel">Baby Critic</h3>
+          </div>
+          <div class="xp-pill"><strong id="criticXP">0</strong> XP</div>
+        </div>
+        <div class="level-track"><i id="levelBar"></i></div>
+        <p class="muted" id="levelHint">Your first review unlocks the game.</p>
+        <div class="badge-row" id="badgeRow"></div>
+      </section>
+
+      <section class="dashboard-grid">
+        <article class="dash-card">
+          <span>Restaurants tried</span>
+          <strong id="dashTotal">0</strong>
+        </article>
+        <article class="dash-card">
+          <span>Average score</span>
+          <strong id="dashAverage">0.0</strong>
+        </article>
+        <article class="dash-card">
+          <span>Elite 9+</span>
+          <strong id="dashElite">0</strong>
+        </article>
+        <article class="dash-card">
+          <span>Most visited area</span>
+          <strong id="dashArea">None</strong>
+        </article>
+        <article class="dash-card">
+          <span>Favorite tag</span>
+          <strong id="dashTag">None</strong>
+        </article>
+        <article class="dash-card">
+          <span>Best sushi</span>
+          <strong id="dashBestSushi">None</strong>
+        </article>
+      </section>
+
+      <section class="toolbar">
+        <div class="search-wrap">
+          <span>⌕</span>
+          <input id="searchInput" placeholder="Search place, area, cuisine, tag" />
+        </div>
+        <div class="filters">
+          <select id="areaFilter"><option value="">All areas</option></select>
+          <select id="cuisineFilter"><option value="">All cuisines</option></select>
+          <select id="tagFilter"><option value="">All tags</option></select>
+          <select id="sortFilter">
+            <option value="score-desc">Highest score</option>
+            <option value="recent">Most recent</option>
+            <option value="score-asc">Lowest score</option>
+            <option value="name">A to Z</option>
+          </select>
+        </div>
+      </section>
+
+      <section class="section-head">
+        <div>
+          <p class="eyebrow">THE LEADERBOARD</p>
+          <h3>Tal's rankings</h3>
+        </div>
+        <div class="section-actions">
+          <button class="ghost-btn" id="seedBtn">Load demo</button>
+          <button class="ghost-btn" id="refreshBtn">Refresh</button>
+        </div>
+      </section>
+
+      <section id="reviewList" class="review-list"></section>
+
+      <section class="empty-state" id="emptyState">
+        <div class="empty-icon">✦</div>
+        <h3>Ready for Tal's era of reviews</h3>
+        <p>Every review requires a restaurant photo, a smart score, and a tag that tells the story.</p>
+        <button class="primary-btn" data-open-review>Add first review</button>
+      </section>
+    </main>
+
+    <nav class="bottom-nav">
+      <button class="nav-item active" data-scroll-top>
+        <span>⌂</span><small>Home</small>
+      </button>
+      <button class="nav-add" data-open-review aria-label="Add review">＋</button>
+      <button class="nav-item" id="exportBtn">
+        <span>⇩</span><small>Export</small>
+      </button>
+    </nav>
+  </div>
+
+  <div class="modal-backdrop" id="reviewModal" aria-hidden="true">
+    <div class="modal-sheet">
+      <div class="modal-header">
+        <div>
+          <p class="eyebrow">NEW REVIEW</p>
+          <h2>Tal's scorecard</h2>
+        </div>
+        <button class="icon-btn" id="closeModal">×</button>
+      </div>
+
+      <div class="stepper">
+        <span class="step active" data-step-dot="1">1</span>
+        <i></i>
+        <span class="step" data-step-dot="2">2</span>
+        <i></i>
+        <span class="step" data-step-dot="3">3</span>
+      </div>
+
+      <form id="reviewForm">
+        <section class="form-step active" data-step="1">
+          <label>Place name
+            <input name="name" required placeholder="e.g. Uchi" />
+          </label>
+
+          <div class="two-col">
+            <label>Type of place
+              <select name="venueType">
+                <option value="restaurant">Restaurant</option>
+                <option value="sushi">Sushi / Omakase</option>
+                <option value="cafe">Café / Brunch</option>
+                <option value="bar">Bar / Lounge</option>
+                <option value="dessert">Dessert / Bakery</option>
+              </select>
+            </label>
+            <label>Price
+              <select name="price">
+                <option value="$">$</option>
+                <option value="$$">$$</option>
+                <option value="$$$" selected>$$$</option>
+                <option value="$$$$">$$$$</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="two-col">
+            <label>Cuisine
+              <input name="cuisine" required placeholder="Sushi, Italian..." />
+            </label>
+            <label>Area
+              <input name="area" required placeholder="Brickell, Wynwood..." />
+            </label>
+          </div>
+
+          <div class="two-col">
+            <label>Visit date
+              <input type="date" name="date" />
+            </label>
+            <label>Best bite
+              <input name="bestDish" placeholder="Best thing you ate" />
+            </label>
+          </div>
+
+          <label>Tag the vibe
+            <select name="tag" required>
+              <option value="date night">date night</option>
+              <option value="lunch break">lunch break</option>
+              <option value="girls night">girls night</option>
+              <option value="family dinner">family dinner</option>
+              <option value="quick grab">quick grab</option>
+              <option value="birthday">birthday</option>
+              <option value="brunch">brunch</option>
+              <option value="comfort food">comfort food</option>
+            </select>
+          </label>
+
+          <label class="photo-upload">
+            <span>Restaurant photo, required</span>
+            <input type="file" name="photo" accept="image/*" capture="environment" required />
+            <small id="photoStatus">Take or upload one photo of the restaurant or food.</small>
+          </label>
+          <img id="photoPreview" class="photo-preview hidden" alt="Preview" />
+        </section>
+
+        <section class="form-step" data-step="2">
+          <p class="question-intro">Rate the details from 1 to 10. These questions are weighted, so the final score feels smarter and more varied.</p>
+
+          <div class="rating-row"><div><strong>1. Worth the drive</strong><small>Did getting there feel worth it?</small></div><output id="driveOut">8</output><input type="range" name="drive" min="1" max="10" value="8" /></div>
+          <div class="rating-row"><div><strong>2. Parking situation</strong><small>Easy and painless, or already annoying?</small></div><output id="parkingOut">8</output><input type="range" name="parking" min="1" max="10" value="8" /></div>
+          <div class="rating-row"><div><strong>3. Wait before sitting</strong><small>How well did they handle the wait?</small></div><output id="waitOut">8</output><input type="range" name="wait" min="1" max="10" value="8" /></div>
+          <div class="rating-row"><div><strong>4. Welcome and care</strong><small>Did they greet you, offer water, and make you feel noticed?</small></div><output id="welcomeOut">8</output><input type="range" name="welcome" min="1" max="10" value="8" /></div>
+          <div class="rating-row"><div><strong>5. Server warmth</strong><small>Warm and smiley, or just doing the job?</small></div><output id="warmthOut">8</output><input type="range" name="warmth" min="1" max="10" value="8" /></div>
+          <div class="rating-row"><div><strong>6. Food timing</strong><small>Did things arrive at a good pace?</small></div><output id="timingOut">8</output><input type="range" name="timing" min="1" max="10" value="8" /></div>
+          <div class="rating-row"><div><strong>7. Order accuracy</strong><small>Any mistakes, forgotten items, or confusion?</small></div><output id="accuracyOut">8</output><input type="range" name="accuracy" min="1" max="10" value="8" /></div>
+          <div class="rating-row"><div><strong>8. Food quality</strong><small>The actual taste, quality, and execution.</small></div><output id="foodOut">8</output><input type="range" name="food" min="1" max="10" value="8" /></div>
+          <div class="rating-row"><div><strong>9. Freshness</strong><small>Did it taste fresh and intentional?</small></div><output id="freshnessOut">8</output><input type="range" name="freshness" min="1" max="10" value="8" /></div>
+          <div class="rating-row"><div><strong>10. Atmosphere</strong><small>Vibe, beauty, music, lighting, energy.</small></div><output id="atmosphereOut">8</output><input type="range" name="atmosphere" min="1" max="10" value="8" /></div>
+          <div class="rating-row"><div><strong>11. Noise balance</strong><small>Could you enjoy it, or was it too loud?</small></div><output id="noiseOut">8</output><input type="range" name="noise" min="1" max="10" value="8" /></div>
+          <div class="rating-row"><div><strong>12. Price fairness</strong><small>Did it feel worth the money?</small></div><output id="valueOut">8</output><input type="range" name="value" min="1" max="10" value="8" /></div>
+          <div class="rating-row"><div><strong>13. Craving to return</strong><small>How strongly do you want to go back?</small></div><output id="cravingOut">8</output><input type="range" name="craving" min="1" max="10" value="8" /></div>
+        </section>
+
+        <section class="form-step" data-step="3">
+          <p class="question-intro">Final questions and smart summary.</p>
+
+          <div class="choice-group">
+            <p>Would you recommend it?</p>
+            <label class="choice"><input type="radio" name="recommend" value="yes" checked /><span>Yes</span></label>
+            <label class="choice"><input type="radio" name="recommend" value="maybe" /><span>Only to the right person</span></label>
+            <label class="choice"><input type="radio" name="recommend" value="no" /><span>No</span></label>
+          </div>
+
+          <div class="choice-group">
+            <p>What kind of occasion fits it best?</p>
+            <label class="choice"><input type="radio" name="moment" value="date" checked /><span>Date night</span></label>
+            <label class="choice"><input type="radio" name="moment" value="casual" /><span>Casual</span></label>
+            <label class="choice"><input type="radio" name="moment" value="celebration" /><span>Celebration</span></label>
+            <label class="choice"><input type="radio" name="moment" value="food-only" /><span>Only for the food</span></label>
+          </div>
+
+          <div class="choice-group">
+            <p>Would you choose it again over trying somewhere new?</p>
+            <label class="choice"><input type="radio" name="chooseAgain" value="yes" checked /><span>Very likely</span></label>
+            <label class="choice"><input type="radio" name="chooseAgain" value="maybe" /><span>Maybe</span></label>
+            <label class="choice"><input type="radio" name="chooseAgain" value="no" /><span>Not likely</span></label>
+          </div>
+
+          <label>One-line verdict
+            <textarea name="notes" rows="3" placeholder="What would Tal text a friend about this place?"></textarea>
+          </label>
+
+          <div class="score-preview">
+            <div>
+              <p class="eyebrow">FINAL SCORE</p>
+              <strong id="scorePreview">8.0</strong>
+              <small>/ 10</small>
+            </div>
+            <div>
+              <div class="stars" id="starPreview">★★★★★★★★☆☆</div>
+              <div class="preview-verdict" id="verdictPreview">Cute but not life-changing</div>
+            </div>
+          </div>
+        </section>
+
+        <div class="form-actions">
+          <button type="button" class="ghost-btn hidden" id="backBtn">Back</button>
+          <button type="button" class="primary-btn" id="nextBtn">Continue</button>
+          <button type="submit" class="primary-btn hidden" id="saveBtn">Save review</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="detailModal" aria-hidden="true">
+    <div class="modal-sheet detail-sheet">
+      <div class="modal-header">
+        <div>
+          <p class="eyebrow">REVIEW CARD</p>
+          <h2 id="detailName">Place</h2>
+        </div>
+        <button class="icon-btn" id="closeDetail">×</button>
+      </div>
+      <div id="detailBody"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
