@@ -1,4 +1,4 @@
-# Tal Tastes V5
+# Tal Tastes V5.2
 
 Static PWA with a robust standalone local mode and optional Supabase cloud mode.
 
@@ -16,10 +16,16 @@ When config.js is empty, reviews and compressed photos are stored in IndexedDB. 
 ## Deployment
 Upload every file in this folder to the root of the GitHub Pages repository and publish `main` / `(root)`.
 
-## V5.1 checks
+## V5.2 checks
 - 15 scoring questions
 - Required compressed restaurant photo
 - Multi-select vibe tags
 - IndexedDB persistence
 - Dashboard, filters, leaderboard, detail view, delete and export
 - PWA cache version bumped to avoid stale GitHub Pages files
+
+
+## V5.2 runtime fix
+- Renamed the local Supabase client variable to avoid collision with the CDN global `supabase`.
+- Bumped PWA cache to v5.2.
+- Runtime-tested the complete add-review flow, including photo preparation, scoring, save, and leaderboard rendering.

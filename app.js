@@ -2,19 +2,19 @@ const CONFIG = window.APP_CONFIG || {};
 const STORAGE_BUCKET = "restaurant-photos";
 const LOCAL_DB_NAME = "tal-tastes-local-v1";
 const LOCAL_STORE = "reviews";
-let supabase = null;
+let supabaseClient = null;
 let reviews = [];
 let currentStep = 1;
 let currentPhoto = null;
 let activeDetailId = null;
 
 if (window.supabase && CONFIG.supabaseUrl && CONFIG.supabaseAnonKey) {
-  supabase = window.supabase.createClient(CONFIG.supabaseUrl, CONFIG.supabaseAnonKey);
+  supabaseClient = window.supabase.createClient(CONFIG.supabaseUrl, CONFIG.supabaseAnonKey);
 }
 
 const $ = (s) => document.querySelector(s);
 const $$ = (s) => [...document.querySelectorAll(s)];
-const uuid = () => (crypto?.randomUUID ? crypto.randomUUID() : Date.now().toString(36)+Math.random().toString(36).slice(2,9));
+const uuid = () => (globalThis.crypto && typeof globalThis.crypto.randomUUID === "function" ? globalThis.crypto.randomUUID() : Date.now().toString(36)+Math.random().toString(36).slice(2,9));
 const clamp = (n,min,max) => Math.max(min, Math.min(max,n));
 const round1 = (n) => Math.round(n*10)/10;
 const escapeHtml = (str="") => String(str).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]));
@@ -229,17 +229,17 @@ function updatePreview(){
 }
 
 async function uploadPhotoToCloud(){
-  if(!supabase) return currentPhoto.dataUrl;
+  if(!supabaseClient) return currentPhoto.dataUrl;
   const path = `public/${Date.now()}-${Math.random().toString(36).slice(2,8)}.jpg`;
-  const {error} = await supabase.storage.from(STORAGE_BUCKET).upload(path,currentPhoto.blob,{contentType:"image/jpeg",upsert:false});
+  const {error} = await supabaseClient.storage.from(STORAGE_BUCKET).upload(path,currentPhoto.blob,{contentType:"image/jpeg",upsert:false});
   if(error) throw error;
-  const {data} = supabase.storage.from(STORAGE_BUCKET).getPublicUrl(path);
+  const {data} = supabaseClient.storage.from(STORAGE_BUCKET).getPublicUrl(path);
   return data.publicUrl;
 }
 async function fetchReviews(){
   try{
-    if(supabase){
-      const {data,error} = await supabase.from("restaurant_reviews").select("*").order("created_at",{ascending:false});
+    if(supabaseClient){
+      const {data,error} = await supabaseClient.from("restaurant_reviews").select("*").order("created_at",{ascending:false});
       if(error) throw error;
       reviews = data || [];
     }else{
@@ -253,16 +253,16 @@ async function fetchReviews(){
   }
 }
 async function saveReview(item){
-  if(supabase){
-    const {data,error} = await supabase.from("restaurant_reviews").insert(item).select().single();
+  if(supabaseClient){
+    const {data,error} = await supabaseClient.from("restaurant_reviews").insert(item).select().single();
     if(error) throw error;
     return data;
   }
   return await localPut(item);
 }
 async function deleteReview(id){
-  if(supabase){
-    const {error} = await supabase.from("restaurant_reviews").delete().eq("id",id);
+  if(supabaseClient){
+    const {error} = await supabaseClient.from("restaurant_reviews").delete().eq("id",id);
     if(error) throw error;
   }else{
     await localDelete(id);
@@ -451,6 +451,6 @@ $("#reviewForm").addEventListener("submit",async e=>{
 });
 
 if("serviceWorker" in navigator){
-  window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js?v=5.1").catch(err=>console.warn("SW",err)));
+  window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js?v=5.2").catch(err=>console.warn("SW",err)));
 }
 fetchReviews();
