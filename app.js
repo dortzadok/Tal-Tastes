@@ -390,7 +390,6 @@ function updateDashboard(){
   const n=reviews.length;
   $("#dashTotal").textContent=n;
   $("#dashAverage").textContent=n?(reviews.reduce((s,r)=>s+(+r.score||0),0)/n).toFixed(1):"0.0";
-  $("#dashElite").textContent=reviews.filter(r=>+r.score>=9).length;
   const now=new Date();
   $("#dashMonth").textContent=reviews.filter(r=>{
     const d=new Date(r.visit_date||r.created_at||0);
@@ -401,8 +400,6 @@ function updateDashboard(){
   $("#dashBestSushi").textContent=[...reviews].filter(r=>r.venue_type==="sushi").sort((a,b)=>b.score-a.score)[0]?.name||"None";
   $("#dashReturn").textContent=n?`${Math.round(reviews.filter(r=>+r.craving>=8).length/n*100)}%`:"0%";
   $("#dashCuisines").textContent=new Set(reviews.map(r=>(r.cuisine||"").toLowerCase()).filter(Boolean)).size;
-  $("#dashMainCharacter").textContent=reviews.filter(r=>+r.score>=9.5).length;
-
   if(!n){
     $("#championName").textContent="No places rated yet";
     $("#championMeta").textContent="Your first review starts the ranking.";
@@ -573,6 +570,6 @@ loadCustomTags();
 if(isAuthenticated()) hideLogin(); else showLogin();
 
 if("serviceWorker" in navigator){
-  window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js?v=5.3").catch(err=>console.warn("SW",err)));
+  window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js?v=5.4").catch(err=>console.warn("SW",err)));
 }
 fetchReviews();

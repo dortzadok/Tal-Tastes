@@ -8,8 +8,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Tal Tastes" />
   <link rel="apple-touch-icon" href="icon-192.png" />
-  <link rel="manifest" href="manifest.json?v=5.3" />
-  <link rel="stylesheet" href="styles.css?v=5.3" />
+  <link rel="manifest" href="manifest.json?v=5.4" />
+  <link rel="stylesheet" href="styles.css?v=5.4" />
   <title>Tal Tastes</title>
 </head>
 <body>
@@ -72,21 +72,34 @@
       <section class="dashboard-title">
         <div>
           <p class="eyebrow">TAL'S DASHBOARD</p>
-          <h3>The numbers</h3>
+          <h3>Her food life, at a glance</h3>
         </div>
       </section>
 
-      <section class="dashboard-grid">
-        <article class="dash-card pink-card"><span>Places tried</span><strong id="dashTotal">0</strong><small>all time</small></article>
-        <article class="dash-card"><span>This month</span><strong id="dashMonth">0</strong><small>new reviews</small></article>
-        <article class="dash-card"><span>Average</span><strong id="dashAverage">0.0</strong><small>out of 10</small></article>
-        <article class="dash-card pink-card"><span>Elite club</span><strong id="dashElite">0</strong><small>scored 9+</small></article>
-        <article class="dash-card"><span>Top area</span><strong id="dashArea">None</strong><small>most visited</small></article>
-        <article class="dash-card"><span>Favorite vibe</span><strong id="dashTag">None</strong><small>most used tag</small></article>
-        <article class="dash-card"><span>Best sushi</span><strong id="dashBestSushi">None</strong><small>highest score</small></article>
-        <article class="dash-card pink-card"><span>Would return</span><strong id="dashReturn">0%</strong><small>strong craving</small></article>
-        <article class="dash-card"><span>Cuisines tried</span><strong id="dashCuisines">0</strong><small>unique cuisines</small></article>
-        <article class="dash-card pink-card"><span>Main character</span><strong id="dashMainCharacter">0</strong><small>scored 9.5+</small></article>
+      <section class="dashboard-block">
+        <div class="dashboard-group-head">
+          <span>At a glance</span>
+          <small>the basics</small>
+        </div>
+        <div class="dashboard-grid">
+          <article class="dash-card feature-card"><span>Places tried</span><strong id="dashTotal">0</strong><small>all time</small></article>
+          <article class="dash-card"><span>This month</span><strong id="dashMonth">0</strong><small>new reviews</small></article>
+          <article class="dash-card"><span>Average score</span><strong id="dashAverage">0.0</strong><small>out of 10</small></article>
+          <article class="dash-card feature-card"><span>Would return</span><strong id="dashReturn">0%</strong><small>strong craving</small></article>
+        </div>
+      </section>
+
+      <section class="dashboard-block">
+        <div class="dashboard-group-head">
+          <span>Tal's taste</span>
+          <small>what the rankings say</small>
+        </div>
+        <div class="dashboard-grid">
+          <article class="dash-card"><span>Top area</span><strong id="dashArea">None</strong><small>most visited</small></article>
+          <article class="dash-card feature-card"><span>Favorite vibe</span><strong id="dashTag">None</strong><small>most used tag</small></article>
+          <article class="dash-card feature-card"><span>Best sushi</span><strong id="dashBestSushi">None</strong><small>highest score</small></article>
+          <article class="dash-card"><span>Cuisines tried</span><strong id="dashCuisines">0</strong><small>unique cuisines</small></article>
+        </div>
       </section>
 
       <section class="toolbar">
@@ -306,7 +319,7 @@
   <div class="toast" id="toast"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="config.js?v=5.3"></script>
-  <script src="app.js?v=5.3"></script>
+  <script src="config.js?v=5.4"></script>
+  <script src="app.js?v=5.4"></script>
 </body>
 </html>

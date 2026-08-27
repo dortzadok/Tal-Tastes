@@ -29,3 +29,9 @@ Before enabling cloud mode, set up real authentication and tighten Row Level Sec
 
 ## Deployment
 Upload every file in this folder to the root of the GitHub Pages repository and publish `main` / `(root)`.
+
+
+## V5.4 dashboard polish
+- Dashboard reduced to the 8 most useful metrics.
+- Removed Elite Club and Main Character.
+- Metrics grouped into At a glance and Tal's taste for a cleaner mobile layout.
